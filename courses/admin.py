@@ -9,6 +9,7 @@ class SubjectAdmin(admin.ModelAdmin):
     
 class ModuleInline(admin.StackedInline):
     model = Module
+    extra = 0
     
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
@@ -17,3 +18,4 @@ class CourseAdmin(admin.ModelAdmin):
     search_fields = ['title', 'overview']
     prepopulated_fields = {'slug': ('title',)}
     inlines = [ModuleInline]
+    
