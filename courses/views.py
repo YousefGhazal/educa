@@ -7,6 +7,7 @@ from .models import Module, Content, Course, Subject
 from django.views.generic.detail import DetailView
 from django.forms.models import modelform_factory
 from django.views.generic.list import ListView
+from students.forms import CourseEnrollForm
 from django.urls import reverse_lazy
 from django.db.models import Count
 from .forms import ModuleFormSet
@@ -172,3 +173,11 @@ class CourseDetailView(DetailView):
     model = Course
     template_name = 'courses/course/detail.html'
     
+class CourseDetailView(DetailView):
+    model = Course
+    template_name = 'courses/course/detail.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['enroll_form'] = CourseEnrollForm(initial={'course':self.object})
+        return context
